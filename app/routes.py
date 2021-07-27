@@ -25,7 +25,7 @@ def disable_tor(token):
     return jsonify({"success": False}), 501
 
 
-@app.route("/api/changeip/<token>", methods=['GET'])
+@app.route("/api/changeip/<token>", methods=['GET', 'POST'])
 def changeip(token):
     os.system('anonsurf changeid')
     # time.sleep(2) # TODO verificar necessidade em teste de stress
@@ -40,7 +40,7 @@ def myip(token):
         return jsonify(res.json())
 
 
-@app.route("/api/changeip_myip/<token>", methods=['GET'])
+@app.route("/api/changeip_myip/<token>", methods=['GET', 'POST'])
 def changeip_myip(token):
     changeip(token)
     return myip(token)
