@@ -1,9 +1,28 @@
-from flask import jsonify
 import time
 import os
 import requests
+from flask import jsonify
+from app.token.validators import validate, not_valid
 
 from app import app
+
+
+@app.route("/api/enabletor/<token>", methods=['GET', 'POST'])
+def enable_tor(token):
+    if not validate(token):
+        return not_valid()
+    os.system('# Colocar para habilitar tor')
+    time.sleep(3)
+    return jsonify({"success": False}), 501
+
+
+@app.route("/api/disabletor/<token>", methods=['GET', 'POST'])
+def disable_tor(token):
+    if not validate(token):
+        return not_valid()
+    os.system('# Colocar para desabilitar tor')
+    time.sleep(3)
+    return jsonify({"success": False}), 501
 
 
 @app.route("/api/changeip/<token>", methods=['GET'])
