@@ -11,7 +11,7 @@ from app import app
 def enable_tor(token):
     if not validate(token):
         return not_valid()
-    os.system('# Colocar para habilitar tor')
+    os.system('anonsurf stop')
     time.sleep(3)
     return jsonify({"success": False}), 501
 
@@ -20,14 +20,14 @@ def enable_tor(token):
 def disable_tor(token):
     if not validate(token):
         return not_valid()
-    os.system('# Colocar para desabilitar tor')
+    os.system('anonsurf start')
     time.sleep(3)
     return jsonify({"success": False}), 501
 
 
-@app.route("/api/changeip/<token>", methods=['GET', 'POST'])
+@app.route("/api/change/<token>", methods=['GET', 'POST'])
 def changeip(token):
-    os.system('anonsurf changeid')
+    os.system('anonsurf change')
     # time.sleep(2) # TODO verificar necessidade em teste de stress
     return jsonify({"success": True})
 
@@ -40,7 +40,7 @@ def myip(token):
         return jsonify(res.json())
 
 
-@app.route("/api/changeip_myip/<token>", methods=['GET', 'POST'])
+@app.route("/api/change_myip/<token>", methods=['GET', 'POST'])
 def changeip_myip(token):
     changeip(token)
     return myip(token)
