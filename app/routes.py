@@ -1,10 +1,22 @@
-import time
+import time, datetime
 import os
 import requests
-from flask import jsonify
+from flask import g, jsonify, request
 from app.token.validators import validate, not_valid
+from app import db
 
 from app import app
+
+
+@app.before_request
+def before_request():
+    db.connect()
+
+
+@app.teardown_request
+def teardown_request(exception):
+    if hasattr(g, 'db'):
+        g.db.close()
 
 
 @app.route("/api/enabletor/<token>", methods=['GET', 'POST'])
@@ -27,8 +39,15 @@ def disable_tor(token):
 
 @app.route("/api/change/<token>", methods=['GET', 'POST'])
 def changeip(token):
-    os.system('anonsurf change')
-    # time.sleep(2) # TODO verificar necessidade em teste de stress
+    if not validate(token):
+        return not_valid()
+    try:
+        os.system('anonsurf change')
+        # time.sleep(2) # TODO verificar necessidade em teste de stress
+        if not db.insert('change', ('token', 'lhost', 'data_hora'), (token, request.remote_addr, datetime.datetime.now())):
+            jsonify({"success": False}), 501
+    except:
+        return {"success": False}, 501
     return jsonify({"success": True})
 
 
@@ -44,3 +63,10 @@ def myip(token):
 def changeip_myip(token):
     changeip(token)
     return myip(token)
+
+
+@app.route("/")
+def home():
+    if db.insert('change', ('token', 'lhost', 'data_hora'), ('aaaaaaa', '192.168.0.100', '25/09/1990')):
+        return str(db.select_change())
+    return 'Falha', 500

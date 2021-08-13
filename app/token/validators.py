@@ -1,5 +1,15 @@
+from app import db
+
+
 def validate(token):
-    return is_valid(token)
+    if is_into_limit():
+        return is_valid(token)
+    return False
+
+
+def is_into_limit():
+    LIMIT_LICENCE = 100
+    return int(db.select('SELECT count(token) from change')[0]) <= LIMIT_LICENCE
 
 
 def is_valid(token):
