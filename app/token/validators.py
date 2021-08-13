@@ -13,7 +13,7 @@ def is_into_limit():
 
 
 def is_valid(token):
-    return token == '7bdb3adea2e032b0e2e31116f48080a3'
+    return token == '7bdb3adea2e032b0e2e31116f48080a3' # TODO mudar para consulta no banco
 
 
 def not_valid():
