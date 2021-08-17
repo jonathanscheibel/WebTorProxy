@@ -8,7 +8,7 @@ def validate(token):
 
 
 def is_into_limit():
-    LIMIT_LICENCE = 100
+    LIMIT_LICENCE = 1000
     return int(db.select('SELECT count(token) from change')[0]) <= LIMIT_LICENCE
 
 
