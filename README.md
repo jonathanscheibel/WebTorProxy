@@ -22,7 +22,6 @@
     . .venv/bin/activate
     pip install -r requirements.txt
 
-
 [Instalar proxy - https://tidahora.com.br/servidor-proxy-squid-no-ubuntu-linux/]
     sudo apt-get install squid
     cp squid.conf squid.conf_copia_seguranca 
