@@ -5,3 +5,4 @@ CREATE TABLE IF NOT EXISTS "change" (
 	"lhost"	TEXT,
 	"data_hora"	TEXT
 );
+COMMIT;
