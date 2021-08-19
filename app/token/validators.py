@@ -1,5 +1,20 @@
+import psutil
+import os
+
+
+def is_running(script):
+    for q in psutil.process_iter():
+        if q.name().startswith('python'):
+            if len(q.cmdline()) > 1 and script in q.cmdline()[1] and q.pid != os.getpid():
+                return True
+    return False
+
+
 def validate(token):
-    return is_valid(token)
+    if is_running("check_licence.py"):
+        if is_valid(token):
+            return True
+    return False
 
 
 def is_valid(token):
