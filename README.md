@@ -21,6 +21,7 @@
     pip install --upgrade pip
     . .venv/bin/activate
     pip install -r requirements.txt
+    sqlite3 app/bases/principal.db < app/bases/banco_principal.sql          
 
 [Instalar proxy - https://tidahora.com.br/servidor-proxy-squid-no-ubuntu-linux/]
     sudo apt-get install squid
@@ -73,12 +74,6 @@
 [Desabilitar cloud-ubuntu]  
     sudo touch /etc/cloud/cloud-init.disabled
 
-[Criação do banco de dados]
-    sqlite3 app/bases/principal.db < app/bases/banco_principal.sql          
-
-[Colocar em produção]
-    reboot
-        
 ```
 
 
