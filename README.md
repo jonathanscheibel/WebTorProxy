@@ -4,8 +4,8 @@
 
 ```
 [Senhas]
-    root=Way@109689
-    jonathan=waypoint
+    root=
+    jonathan=
 
 [Atualizar sistema operacional] 
     apt update && apt upgrade
